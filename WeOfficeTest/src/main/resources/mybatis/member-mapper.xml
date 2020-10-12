@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+	<!-- login -->
+	<select id="login" parameterType="memberDto"
+		resultType="memberDto">
+		SELECT USER_NUM, NAME, PASSWORD, U_ID
+		FROM "User"
+		WHERE U_ID = #{u_id}
+		AND PASSWORD = #{password}
+	</select>
+
+	<select id="selectOne" parameterType="int"
+		resultType="memberDto">
+		SELECT NAME, U_ID
+		FROM "User"
+		WHERE USER_NUM = #{user_num}
+	</select>
+
+	<select id="check_id" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM "User"
+		WHERE U_ID = #{u_id}
+	</select>
+
+	<insert id="register" parameterType="memberDto">
+		INSERT INTO "User" VALUES(USERNOSEQ.NEXTVAL, #{name}, #{password},
+		#{email},NULL, NULL,NULL,NULL,#{u_id})
+	</insert>
+
+	<select id="getPw" parameterType="Email" resultType="String">
+		SELECT PASSWORD
+		FROM "User"
+		WHERE U_ID= #{u_id} AND EMAIL=#{email}
+	</select>
+</mapper>
