@@ -25,6 +25,12 @@
   		WHERE U_ID = #{u_id}
   	</select>
   	
+  	<select id="check_email" parameterType="String" resultType="int">
+  		SELECT COUNT(*)
+  		FROM "User"
+  		WHERE EMAIL = #{email}
+  	</select>
+  	
   	<insert id="register" parameterType="memberDto">
   		INSERT INTO "User" VALUES(USERNOSEQ.NEXTVAL, #{u_id}, #{name}, #{password}, #{email},NULL, NULL,NULL,NULL,NULL,NULL,NULL)
   	</insert>

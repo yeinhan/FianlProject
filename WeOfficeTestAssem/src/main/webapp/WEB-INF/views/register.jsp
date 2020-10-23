@@ -62,6 +62,25 @@ $(function(){
 		})
 	});
 	
+	$('#chkEmail').click(function(){
+		$.ajax({
+			url : "check_email.do",
+			type : "POST",
+			data : {
+				email : $("#Email").val()
+			},
+			success : function(result) {
+				if (result == 1) {
+					$(".emailCheck").html("중복된 이메일이 있습니다.");
+					$("#joinBtn").attr("disabled", "disabled");
+				} else {
+					$(".emailCheck").html("사용 가능한 이메일 입니다.");
+					$("#joinBtn").removeAttr("disabled");
+				}
+			},
+		})
+	})
+	
 	//비밀번호 재확인
 	$("#RepeatPw, #InputPw").keyup(function(){
 		$.ajax({
@@ -111,8 +130,10 @@ $(function(){
 									<!--                   </div> -->
 								</div>
 								<div class="form-group">
-									<input type="email" class="form-control form-control-user" id="Email" name="email" placeholder="Email Address">
+									<input type="email" class="form-control form-control-user regi_email" id="Email" name="email" placeholder="Email Address">
+									<input id="chkEmail" type="button" class="btn btn-primary btn-user btn-block regi_email_btn" value="Check Email" style="width:30%;">
 								</div>
+								<div class="emailCheck" style="margin-top: 0px;"></div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="password" class="form-control form-control-user" id="InputPw" name="password"placeholder="Password" required="required">

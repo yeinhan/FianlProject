@@ -46,7 +46,7 @@
 					if (msg.check == true) {
 						location.href = "main.do";
 					} else {
-						$("#loginChk").show().html("ID 혹은 PW가 잘못되었습니다");
+						$("#loginChk").show().html("인증되지 않은 이메일 혹은 ID/PW가 잘못되었습니다");
 					}
 				},
 				error : function() {
