@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reservation">
+
+
+<resultMap id="reservationMap" type="reservationDto">
+
+<result column="RESER_NO" property="reser_no"/>
+
+<result column="U_NO" property="u_no"/>
+
+<result column="RESER" property="reser"/>
+
+<result column="DAY" property="day"/>
+
+</resultMap>
+
+<select id="selectList" resultMap="reservationMap">SELECT MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATEFROM MYBOARDORDER BY MYNO DESC </select>
+
+<insert id="insert" parameterType="reservationDto">INSERT INTO RESERVATIONVALUES(RESER_NOSEQ.NEXTVAL,#{u_no},#{reser},#{day}) </insert>
+
+<insert id="insertroom" parameterType="reservationDto">INSERT INTO RESERVATIONVALUES(#{day},1) </insert>
+
+<!-- 조회 -->
+
+
+
+<select id="Chk" parameterType="String" resultType="reservationDto">
+SELECT SUB,DAY FROM(SELECT DAY, SUBSTR (str,INSTR (str, dlm, 1, LEVEL) + 1,INSTR (str, dlm, 1, LEVEL + 1) - INSTR (str, dlm, 1, LEVEL) - 1) subFROM (SELECT DAY, ',' || RESER || ',' str, ',' dlmFROM RESERVATION ) 
+<![CDATA[CONNECT BY LEVEL <= LENGTH (str) - LENGTH (REPLACE (str, ',')) - 1 )]]>WHERE DAY = #{day}GROUP BY SUB 
+</select>
+
+</mapper>
