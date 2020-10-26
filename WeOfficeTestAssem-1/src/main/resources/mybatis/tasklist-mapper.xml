@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="tasklist">
+	
+	<insert id="taskinsert" parameterType="tasklistDto">
+		INSERT INTO TASKLIST
+		VALUES(T_ID_SEQ.NEXTVAL, #{w_id}, #{w_content}, 0)
+	</insert>
+	
+	<delete id="taskdelete" parameterType="tasklistDto">
+		DELETE FROM TASKLIST
+		WHERE T_ID = #{t_id}
+	</delete>
+	
+	<update id="updatechk_y" parameterType="tasklistDto">
+		UPDATE TASKLIST
+		SET CHK_YN = #{chk_yn}
+		WHERE T_ID = #{t_id}
+	</update>
+		
+	<update id="updatechk_n" parameterType="tasklistDto">
+		UPDATE TASKLIST
+		SET CHK_YN = #{chk_yn}
+		WHERE T_ID = #{t_id}
+	</update>
+	
+</mapper>

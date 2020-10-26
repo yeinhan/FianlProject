@@ -7,31 +7,114 @@
 <mapper namespace="reservation">
 
 
-<resultMap id="reservationMap" type="reservationDto">
 
-<result column="RESER_NO" property="reser_no"/>
+	<resultMap id="reservationMap" type="reservationDto">
 
-<result column="U_NO" property="u_no"/>
+		<result column="RESER_NO" property="reser_no" />
 
-<result column="RESER" property="reser"/>
+		<result column="U_NO" property="u_no" />
 
-<result column="DAY" property="day"/>
+		<result column="RESER" property="reser" />
 
-</resultMap>
+		<result column="DAY" property="day" />
 
-<select id="selectList" resultMap="reservationMap">SELECT MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATEFROM MYBOARDORDER BY MYNO DESC </select>
+		<result column="SUB" property="sub" />
 
-<insert id="insert" parameterType="reservationDto">INSERT INTO RESERVATIONVALUES(RESER_NOSEQ.NEXTVAL,#{u_no},#{reser},#{day}) </insert>
+		<result column="R_TIME" property="time" />
 
-<insert id="insertroom" parameterType="reservationDto">INSERT INTO RESERVATIONVALUES(#{day},1) </insert>
+		<result column="ROOM" property="room" />
 
-<!-- 조회 -->
-
+	</resultMap>
 
 
-<select id="Chk" parameterType="String" resultType="reservationDto">
-SELECT SUB,DAY FROM(SELECT DAY, SUBSTR (str,INSTR (str, dlm, 1, LEVEL) + 1,INSTR (str, dlm, 1, LEVEL + 1) - INSTR (str, dlm, 1, LEVEL) - 1) subFROM (SELECT DAY, ',' || RESER || ',' str, ',' dlmFROM RESERVATION ) 
-<![CDATA[CONNECT BY LEVEL <= LENGTH (str) - LENGTH (REPLACE (str, ',')) - 1 )]]>WHERE DAY = #{day}GROUP BY SUB 
-</select>
+
+
+	<select id="selectList" resultMap="reservationMap">SELECT MYNO, MYNAME, MYTITLE,
+		MYCONTENT, MYDATE FROM MYBOARD ORDER BY MYNO DESC </select>
+
+	<insert id="insert" parameterType="reservationDto">INSERT INTO RESERVATION
+		VALUES(RESER_NOSEQ.NEXTVAL, #{u_no}, #{reser}, #{day}) </insert>
+
+	<insert id="insertroom" parameterType="reservationDto">INSERT INTO RESERVATION
+		VALUES(#{day},1) </insert>
+
+	<!-- 조회 -->
+
+
+
+	<select id="Chk" parameterType="String"
+		resultType="reservationDto">
+		SELECT SUB FROM(
+		SELECT DAY, SUBSTR (str,
+		INSTR (str, dlm, 1, LEVEL) + 1,
+		INSTR (str, dlm, 1, LEVEL + 1) - INSTR (str, dlm, 1, LEVEL)
+		- 1
+		) sub
+		FROM (SELECT DAY, ',' || RESER || ',' str, ',' dlm
+		FROM RESERVATION )
+
+<![CDATA[CONNECT BY LEVEL <= LENGTH (str) - LENGTH (REPLACE (str, ',')) - 1 )]]>
+		WHERE DAY = #{day} and SUB is not null
+		GROUP BY SUB
+	</select>
+
+
+
+	<select id="my_Chk" parameterType="String"
+		resultMap="reservationMap">
+
+		SELECT U_NO, RESER_NO, DAY, SUB,
+		REGEXP_SUBSTR(SUB, '[^-]+',1,1)AS ROOM
+		,REGEXP_SUBSTR(SUB, '[^-]+',1,2)AS R_TIME
+		FROM (
+		SELECT DISTINCT U_NO, RESER_NO, DAY, SUB FROM(
+		SELECT U_NO, RESER_NO, DAY, SUBSTR (str,
+		INSTR (str, dlm, 1, LEVEL) + 1,
+		INSTR (str, dlm, 1, LEVEL + 1) - INSTR (str, dlm, 1, LEVEL)
+		- 1
+		) sub
+		FROM (SELECT U_NO, RESER_NO, DAY, ',' || RESER || ',' str, ',' dlm
+		FROM RESERVATION )
+<![CDATA[CONNECT BY LEVEL <= LENGTH (str) - LENGTH (REPLACE (str, ',')) - 1 )]]>
+		WHERE SUB is not null
+		)
+		WHERE U_NO = #{u_no}
+		ORDER BY RESER_NO
+
+	</select>
+
+
+	<select id="search" parameterType="reservationDto"
+		resultType="reservationDto">
+
+		SELECT SUB
+		FROM (
+		SELECT DISTINCT U_NO, RESER_NO, DAY, SUB FROM(
+		SELECT U_NO, RESER_NO, DAY, SUBSTR (str,
+		INSTR (str, dlm, 1, LEVEL) + 1,
+		INSTR (str, dlm, 1, LEVEL + 1) - INSTR (str, dlm, 1, LEVEL)
+		- 1
+		) sub
+		FROM (SELECT U_NO, RESER_NO, DAY, ',' || RESER || ',' str, ',' dlm
+		FROM RESERVATION )
+<![CDATA[CONNECT BY LEVEL <= LENGTH (str) - LENGTH (REPLACE (str, ',')) - 1 )]]>
+		WHERE SUB is not null
+		)
+		WHERE U_NO= #{u_no} AND RESER_NO= #{reser_no} AND SUB != #{sub}
+		ORDER BY RESER_NO
+
+
+	</select>
+
+
+	<update id="r_update" parameterType="reservationDto">
+		UPDATE RESERVATION
+		SET RESER
+		= #{sub}
+		WHERE RESER_NO= #{reser_no} AND U_NO= #{u_no}
+
+	</update>
+
+
 
 </mapper>

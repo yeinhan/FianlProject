@@ -49,14 +49,14 @@
       
       <li class="nav-item">
         <a class="nav-link" href="notice.do">
-          <i class="fas fa-fw fa-exclamation"></i>
-          <span>Notice</span></a>
+          <i class="fas fa-exclamation-circle" style="width:15px; margin-left:1px;"></i>
+          <span>NOTICE</span></a>
       </li>
 
       <!-- 업무관리 -->
       <li class="nav-item">
-        <a class="nav-link" href="project.do">
-          <i class="fas fa-fw fa-exclamation"></i>
+        <a class="nav-link" href="project.do" style="padding-top:8px;">
+          <i class="fas fa-folder-open" style="width:17px;"></i>
           <span>프로젝트</span></a>
       </li>
 
@@ -72,19 +72,19 @@
       <!-- 멤버 -->
       <li class="nav-item">
         <a class="nav-link" href="member.do">
-          <i class="fas fa-fw fa-users"></i>
+          <i class="fas fa-fw fa-users" style="width:17px;"></i>
           <span>멤버</span></a>
       </li>
       
       <!-- 채팅 -->
         <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-folder"></i>
+        <a class="nav-link collapsed" href="#" style="padding-top:8px;" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-comments" style="width:16px; margin-left:1px;"></i>
           <span>채팅</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
+            <h6 class="collapse-header">Utilities</h6>
             <a class="collapse-item" href="channel.do">협업</a>
             <a class="collapse-item" href="utilities-border.jsp">DM</a>
           </div>
@@ -97,9 +97,9 @@
       
       <!-- 예약 -->
       <li class="nav-item">
-        <a class="nav-link" href="reservation.do">
-          <i class="fas fa-fw fa-exclamation"></i>
-          <span>예약</span></a>
+        <a class="nav-link" href="reservation.do" style="padding-top:3px;">
+          <i class="fas fa-thumbtack" style="width:13px; margin-left:2px;"></i>
+          <span>회의실 예약</span></a>
       </li>
 
       <!-- Divider -->
@@ -107,12 +107,13 @@
             
       <!-- 마이페이지 -->
       <li class="nav-item">
-        <a class="nav-link" href="mypage.do">
-          <i class="fas fa-fw fa-exclamation"></i>
+        <a class="nav-link" href="mypage.do" style="padding-top:3px;">
+          <i class="fas fa-user-edit" style="width:17px;"></i>
           <span>마이페이지</span></a>
       </li>
 
       <!-- Sidebar Toggler (Sidebar) -->
+      <br>
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>

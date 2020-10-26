@@ -45,58 +45,53 @@ $(function() {
 
 <script type= "text/javascript">
 
-
 window.onload =function(){
-		  var grpl = $("input[name=reser]").length;
-	 	
+	  var grpl = $("input[name=reser]").length;
 	
-		//reser체크박스 배열 생성
-		var grparr = new Array(grpl);
-		//배열에 값 주입 총 36개 
-		for(var i=0; i<grpl; i++){                          
-			grparr[i] = $("input[name=reser]").eq(i).val();
-			}
-		//reser체크박스 배열 생성
-		var grparr2 = new Array(grpl);
-		//배열에 값 주입 총 36개 
-		for(var i=0; i<grpl; i++){                          
-			grparr2[i] = $("input[name=reser]").eq(i);
-			}
-		
-		
-	 	
-		//가져온 dto값 배열 생성
-		var Chklist = new Array();
-		//배열에 값 주입 
-		<c:forEach items="${Chk}" var="item">
-			  Chklist.push("${item.sub}");
-		</c:forEach>
-		
 
-
-	
-		 
-		// 조회 완료된 예약값과 비교 
-		for(var a = 0; a < Chklist.length; a++){
-			var f = Chklist[a];
-			for(var d= 0; d <grparr.length; d++){
-		   		var g = grparr[d];
-		   
-				if(f == g){
-			
-				document.getElementById(d).className = "btn";
-				document.getElementById(d).style.backgroundColor="#e74a3b";
-				var j =document.getElementById('r'+d);
-				j.setAttribute("disabled", "disabled");
-				
-				}
-			}
+	//reser체크박스 배열 생성
+	var grparr = new Array(grpl);
+	//배열에 값 주입 총 36개 
+	for(var i=0; i<grpl; i++){                          
+		grparr[i] = $("input[name=reser]").eq(i).val();
+		}
+	//reser체크박스 배열 생성
+	var grparr2 = new Array(grpl);
+	//배열에 값 주입 총 36개 
+	for(var i=0; i<grpl; i++){                          
+		grparr2[i] = $("input[name=reser]").eq(i);
 		}
 	
 	
+	
+	//가져온 dto값 배열 생성
+	var Chklist = new Array();
+	//배열에 값 주입 
+	<c:forEach items="${Chk}" var="item">
+		
+		  Chklist.push("${item.sub}");
+	</c:forEach>
+	
+
+	// 조회 완료된 예약값과 비교 
+	for(var a = 0; a < Chklist.length; a++){
+		var f = Chklist[a];
+		for(var d= 0; d <grparr.length; d++){
+	   		var g = grparr[d];
+	   
+			if(f == g){
+		
+			document.getElementById(d).className = "btn";
+			document.getElementById(d).style.backgroundColor="#e74a3b";
+			var j =document.getElementById('r'+d);
+			j.setAttribute("disabled", "disabled");
+			
+			}
+		}
+	}
+
+
 };
-
-
 
 function Chk(){
 
@@ -340,6 +335,7 @@ function Chk(){
                <p>1.예약시 안내사랑같은거</p>
                <p>2. </p>
                <p>3.날짜 선택시 예약창을 띄울예점</p>
+             ${sessionScope.login.user_num }
       
               </div>
             </div>
@@ -523,7 +519,7 @@ function Chk(){
 	                      					<input type="checkbox" name="reser" id="r35"  VALUE="4-9"></label></div>
 	                      </td>
                     </tr>
-                    <input type="hidden" name ="u_no" value="1" >        
+                    <input type="hidden" name ="u_no" value=${sessionScope.login.user_num} >        
                   </tbody> 
                 </table>
               </div>

@@ -46,7 +46,7 @@
 					if (msg.check == true) {
 						location.href = "main.do";
 					} else {
-						$("#loginChk").show().html("인증되지 않은 이메일 혹은 ID/PW가 잘못되었습니다");
+						$("#loginChk").show().html("이메일이 인증되지 않은 사용자 혹은 ID/PW가 잘못되었습니다");
 					}
 				},
 				error : function() {
@@ -100,17 +100,17 @@
 										<!-- 										</div> -->
 										<div align="center" id="loginChk"></div>
 										<input type="button" class="btn btn-primary btn-user btn-block" value="Login" onclick="login();">
-										<hr>
-										<a href="index.jsp" class="btn btn-google btn-user btn-block"> <i class="fab fa-google fa-fw"></i> Login with Google
-										</a> <a href="index.jsp" class="btn btn-facebook btn-user btn-block"> <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-										</a>
+<!-- 										<hr> -->
+<!-- 										<a href="index.jsp" class="btn btn-google btn-user btn-block"> <i class="fab fa-google fa-fw"></i> Login with Google -->
+<!-- 										</a> <a href="index.jsp" class="btn btn-facebook btn-user btn-block"> <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook -->
+<!-- 										</a> -->
 									</form>
 									<hr>
 									<div class="text-center">
-										<a class="small" href="forgotpwform.do">Forgot Password?</a>
+										<a class="small" href="forgotpwform.do">비밀번호 찾기</a>
 									</div>
 									<div class="text-center">
-										<a class="small" href="registerform.do">Create an Account!</a>
+										<a class="small" href="registerform.do">회원가입!</a>
 									</div>
 								</div>
 							</div>

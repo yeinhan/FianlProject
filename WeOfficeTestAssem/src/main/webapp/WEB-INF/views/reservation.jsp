@@ -284,7 +284,7 @@ $(function() {
                <p>1.예약시 안내사랑같은거</p>
                <p>2. </p>
                <p>3.날짜 선택시 예약창을 띄울예점</p>
-          
+          	<P> ${sessionScope.login.user_num }</P>
                
    
                

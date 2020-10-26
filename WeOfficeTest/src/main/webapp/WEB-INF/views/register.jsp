@@ -133,7 +133,7 @@ $(function(){
 								<a class="small" href="forgotpwform.do">비밀번호를 잊으셨나요?</a>
 							</div>
 							<div class="text-center">
-								<a class="small" href="loginform.jsp">계정이 있으신가요? 로그인</a>
+								<a class="small" href="loginform.do">계정이 있으신가요? 로그인</a>
 							</div>
 						</div>
 					</div>

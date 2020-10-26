@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  
+<configuration>
+<!-- Oracle null 처리 -->
+	<settings>
+		<setting name="cacheEnabled" value="false"/>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.spring.dto.BoardDto" alias="BoardDto"/>
+		<typeAlias type="com.spring.dto.MemberDto" alias="memberDto"/>
+		<typeAlias type="com.spring.dto.ProjectDto" alias="projectDto"/>
+		<typeAlias type="com.spring.dto.WorkSpaceDto" alias="workspaceDto"/>
+		<typeAlias type="com.spring.dto.TaskListDto" alias="tasklistDto"/>
+		<typeAlias type="com.spring.dto.PaymentDto" alias="paymentDto"/>
+		<typeAlias type="com.spring.dto.UploadFile" alias="uploadFile"/>
+		<typeAlias type="com.spring.email.Email" alias="Email"/>
+	</typeAliases>
+	
+	<!-- resource : src/main/resource와 연결 -->
+	<mappers>
+		<mapper resource="/mybatis/board-mapper.xml" />
+		<mapper resource="/mybatis/member-mapper.xml"/>
+		<mapper resource="/mybatis/workspace-mapper.xml" />
+		<mapper resource="/mybatis/tasklist-mapper.xml" />
+		<mapper resource="/mybatis/payment-mapper.xml" />
+		<mapper resource="/mybatis/project-mapper.xml" />
+	</mappers>
+	
+	<!-- Oracle null 처리 -->
+	
+	
+</configuration>

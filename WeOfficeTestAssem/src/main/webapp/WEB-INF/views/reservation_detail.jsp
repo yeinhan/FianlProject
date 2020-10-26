@@ -291,7 +291,8 @@ function goBack() {
                     </tr>
                      <tr>
 		                <th> 예약 시간: </th>
-		                <td>${dto.time} </td>
+		                <td>${dto.time}  </td>
+		                
                     </tr>
 
                 </table>
@@ -302,11 +303,11 @@ function goBack() {
         	 
         	
         	<!-- insert용 정보 넘기기  -->
-       <div style="display:none;">
-        <form name="reservstion" action="insert.do" method="post">
+       <div >
+        <form name="reservstion" action="reserinsert.do" method="post" style="display:none;">
        <input type="text" name=day value=${day}>
        <input type="text" name=reser value=${reser}>
-       <input type="hidden" name ="u_no" value="1" >   
+       <input type="text" name ="u_no" value=${u_no}>  
    
        </div>
        

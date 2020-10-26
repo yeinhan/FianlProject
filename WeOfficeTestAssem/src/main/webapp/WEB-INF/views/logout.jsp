@@ -22,7 +22,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">Ã</span>
+						<span aria-hidden="true"></span>
 					</button>
 				</div>
 				<div class="modal-body">현재 세션을 종료 할 준비가 되었으면 아래에서 "로그아웃"을 선택하십시오.</div>

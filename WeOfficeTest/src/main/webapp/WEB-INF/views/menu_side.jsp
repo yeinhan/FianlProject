@@ -135,6 +135,12 @@
           <i class="fas fa-fw fa-exclamation"></i>
           <span>마이페이지</span></a>
       </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="vchat.do">
+          <i class="fas fa-fw fa-exclamation"></i>
+          <span>cc</span></a>
+      </li>
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">

@@ -106,21 +106,20 @@ function payPopup() {
 		alert("결제 옵션을 선택해주세요.");
 	} else {
 		IMP.request_pay({
-		    pg : "inicis",
-		    pay_method : "card",
-		    merchant_uid : "merchant_" + new Date().getTime(),
-		    name : "WeOffice_payment",
-		    //amount : payOpt*num,
-		    amount : "100",
-		    buyer_name : "구매자",				// 로그인정보 받아오기(출력) ///////////////////
-		    buyer_email : "weoffice@k.kr",		// 로그인정보 받아오기(출력) ///////////////////
-		    buyer_tel : "010-1234-5678"			// 로그인정보 받아오기(출력x) ///////////////////
+		    pg: "inicis",
+		    pay_method: "card",
+		    merchant_uid: "merchant_" + new Date().getTime(),
+		    name: "WeOffice_payment",
+		    //amount: payOpt*num,
+		    amount: "100",
+		    buyer_name: "${login_user.name}",
+		    buyer_email: "${login_user.email}"
 		}, function(rsp) {
 		    if (rsp.success) {
-		        var msg = "결제가 완료되었습니다. ";
-				paymentInsert(month, num, payOpt*num);	// payment db삽입 /////////////////////
+				paymentInsert(month, num, payOpt*num);	// payment db삽입
+				var msg = "결제가 완료되었습니다. ";
 		    } else {
-		        var msg = "결제에 실패하였습니다. ";
+		        var msg = "결제를 취소하셨습니다. ";
 		    }
 		    alert(msg);
 		});
@@ -129,8 +128,8 @@ function payPopup() {
 
 function paymentInsert(months, number, amount) {
 	var insertPay = {
-		"user_num":'1',		// 세션 ///////////////////
-		"name":'윤ㅇㅇ',		// 세션 ///////////////////
+		"user_num":"${login_user.user_num}",
+		"name":"${login_user.name}",
 		"p_months":months,
 		"p_number":number,
 		"p_amount":amount
@@ -286,56 +285,62 @@ function selectMember(num, pay_user) {
 							</div>
 							
 							
-							<!-- 결제 -->
-							<div class="card shadow mb-4">
-								<!-- Cart Header -->
-								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">결제하기</h6>
-								</div>
-								<!-- Card Body -->
-								<div class="card-body">
-									<form method="post" action="">
-										<div class="selMonthArea" style="padding:10px;">
-											<label class="tw-account-settings-pane-label">이용기간</label>
-											<div class="selectmonth" id="1mon-parent" style="padding-left:22px;">
-												<input type="radio" value="10000" name="paymonth" id="1" onclick="radioBtnSelect(this.value);" required ><label for="1" style="margin-bottom:0rem;">&nbsp; &#8361;10,000 / 1개월</label>
-											</div>
-											<div class="selectmonth" id="3mon-parent" style="padding-left:22px;">
-												<input type="radio" value="27000" name="paymonth" id="3" onclick="radioBtnSelect(this.value);" required ><label for="3" style="margin-bottom:0rem;">&nbsp; &#8361;27,000 / 3개월</label>													
-											</div>
-											<div class="selectmonth" id="6mon-parent" style="padding-left:22px;">
-												<input type="radio" value="51000" name="paymonth" id="6" onclick="radioBtnSelect(this.value);" required ><label for="6" style="margin-bottom:0rem;">&nbsp; &#8361;51,000 / 6개월</label>
-											</div>
-											<div class="selectmonth" id="12mon-parent" style="padding-left:20px;">
-												<input type="radio" value="96000" name="paymonth" id="12" onclick="radioBtnSelect(this.value);" required ><label for="12" style="margin-bottom:0rem;">&nbsp; &#8361;96,000 / 12개월</label>													
-											</div>
+							<!-- 결제 : 로그인 안되었을 경우 출력 x -->
+							<c:choose>
+								<c:when test="${empty login_user }">
+								</c:when>
+								<c:otherwise>
+									<div class="card shadow mb-4">
+										<!-- Cart Header -->
+										<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+											<h6 class="m-0 font-weight-bold text-primary">결제하기</h6>
 										</div>
-										<br><br><br><br><br>
-										
-										<div class="selNumArea" style="padding:10px;">
-											<label class="tw-account-settings-pane-label">참여멤버 수</label>
-											<select class="selectnum">
-												<c:forEach var="i" begin="1" end="20" step="1">
-													<option value="${i }"><c:out value="${i }"/></option>
-												</c:forEach>
-											</select>
+										<!-- Card Body -->
+										<div class="card-body">
+											<form method="post" action="">
+												<div class="selMonthArea" style="padding:10px;">
+													<label class="tw-account-settings-pane-label">이용기간</label>
+													<div class="selectmonth" id="1mon-parent" style="padding-left:22px;">
+														<input type="radio" value="10000" name="paymonth" id="1" onclick="radioBtnSelect(this.value);" required ><label for="1" style="margin-bottom:0rem;">&nbsp; &#8361;10,000 / 1개월</label>
+													</div>
+													<div class="selectmonth" id="3mon-parent" style="padding-left:22px;">
+														<input type="radio" value="27000" name="paymonth" id="3" onclick="radioBtnSelect(this.value);" required ><label for="3" style="margin-bottom:0rem;">&nbsp; &#8361;27,000 / 3개월</label>													
+													</div>
+													<div class="selectmonth" id="6mon-parent" style="padding-left:22px;">
+														<input type="radio" value="51000" name="paymonth" id="6" onclick="radioBtnSelect(this.value);" required ><label for="6" style="margin-bottom:0rem;">&nbsp; &#8361;51,000 / 6개월</label>
+													</div>
+													<div class="selectmonth" id="12mon-parent" style="padding-left:20px;">
+														<input type="radio" value="96000" name="paymonth" id="12" onclick="radioBtnSelect(this.value);" required ><label for="12" style="margin-bottom:0rem;">&nbsp; &#8361;96,000 / 12개월</label>													
+													</div>
+												</div>
+												<br><br><br><br><br>
+												
+												<div class="selNumArea" style="padding:10px;">
+													<label class="tw-account-settings-pane-label">참여멤버 수</label>
+													<select class="selectnum">
+														<c:forEach var="i" begin="1" end="${count_user }" step="1">
+															<option value="${i }"><c:out value="${i }"/></option>
+														</c:forEach>
+													</select>
+												</div>
+												
+												<div class="btnArea">
+													<input type="button" class="btn btn-info btn-icon-split" id="paybtn" style="width:100px;" value="결제" onclick="payPopup();">										
+													<c:choose>
+														<c:when test="${empty payment_user }">
+														</c:when>
+														<c:otherwise>
+															<input type='button' class='btn btn-warning btn-icon-split' id='selectBtn' style='width:100px; margin-right:10px;' value='멤버선택'
+																	onclick='selectMember(${payment_user.p_number }, ${payment_user.user_num });' />
+														</c:otherwise>
+													</c:choose>
+												</div>
+											</form>
 										</div>
-										
-										<div class="btnArea">
-											<input type="button" class="btn btn-info btn-icon-split" id="paybtn" style="width:100px;" value="결제" onclick="payPopup();">										
-											<c:choose>
-												<c:when test="${empty payment_user }">
-												</c:when>
-												<c:otherwise>
-													<input type='button' class='btn btn-warning btn-icon-split' id='selectBtn' style='width:100px; margin-right:10px;' value='멤버선택'
-															onclick='selectMember(${payment_user.p_number }, ${payment_user.user_num });' />
-												</c:otherwise>
-											</c:choose>
-										</div>
-									</form>
-								</div>
-							</div>
-							
+									</div>
+								</c:otherwise>
+							</c:choose>
+							<!-- 결제 끝 -->
 						</div>
 					</div>
 					

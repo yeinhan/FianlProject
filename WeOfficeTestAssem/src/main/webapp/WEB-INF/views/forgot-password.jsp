@@ -81,7 +81,7 @@
 									</div>
 									<form class="userPw" action="sendpw.do" method="post">
 										<div class="form-group">
-											<input type="id" class="form-control form-control-user" id="id" name="u_id" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+											<input type="id" class="form-control form-control-user" id="id" name="u_id" aria-describedby="emailHelp" placeholder="Enter Id...">
 										</div>
 										<div class="idCheck"></div>
 										<div class="form-group">

@@ -29,8 +29,8 @@
 	</delete>
 
 
-	<!-- 프로젝트 아이디 얻어오기 -->
-	<select id="selectpjtName" parameterType="String" resultType="projectDto">
+	<!-- 프로젝트 가져오기 -->
+	<select id="selectpjtOne" parameterType="String" resultType="projectDto">
 		SELECT * FROM PROJECT
 		WHERE P_ID = #{p_id}
 	</select>

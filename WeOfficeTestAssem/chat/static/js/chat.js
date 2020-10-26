@@ -1,25 +1,39 @@
 var socket = io();
+var user_num;
+var user_name;
+
+function getChatLog(){
+    /* 접속 되었을 때 실행 */
+    socket.emit('conn');
+}
 
 const Chat = (function() {
-    const myName = "blue";
+
+    socket.on('getInfo', function(data){
+        user_num = data[0][0];
+        user_name = data[0][1];
+        socket.emit('getChatLog');
+    });
 
     /* 채팅로그 받아오기 */
     socket.on('getChatLog', function(data){
-        console.log(data.toString);
-        console.log('받아오기');
+        console.log(data);
+        for(var i = data.length-1; i >= 0; i--){
+            if(data[i][0] == user_num){
+                appendMessageTag("right", data[i][1], data[i][2]);
+            }else{
+                appendMessageTag("left", data[i][1], data[i][2]);
+            }
+        }
     });
 
     /* 메시지 받을 경우 */
     socket.on('update', function(data){
-        appendMessageTag("left", data.senderName, data.message);
+        appendMessageTag("left", data.user_name, data.message);
     });
 
     // init 함수
     function init() {
-    	
-    	/* 접속 되었을 때 실행 */
-        socket.emit('message', {"senderName" : "blue"});
-    	
         // enter 키 이벤트
         $(document).on('keydown', 'div.input-div textarea', function(e) {
             if (e.keyCode == 13 && !e.shiftKey) {
@@ -54,7 +68,8 @@ const Chat = (function() {
         $('div.chat:not(.format) ul').append(chatLi);
 
         // 스크롤바 아래 고정
-        $('div.chat').scrollTop($('div.chat').prop('scrollHeight'));
+        $('div.chat:not(.format) ul').scrollTop($('div.chat:not(.format) ul').prop('scrollHeight'));
+		//$('div.chat').scrollTop($('div.chat').prop('scrollHeight'));
     }
 
     // 메세지 전송
@@ -62,11 +77,12 @@ const Chat = (function() {
         // 서버에 전송하는 코드로 후에 대체
         const data = {
             "type" : "message",
-            "senderName" : "blue",
+            "user_num" : user_num,
+            "user_name" : user_name,
             "message" : message
         };
 
-        appendMessageTag("right", data.senderName, data.message);
+        appendMessageTag("right", data.user_name, data.message);
         socket.emit('message', data);
     }
 
@@ -78,9 +94,10 @@ const Chat = (function() {
     return {
         'init' : init
     };
-    
 })();
 
 $(function() {
+    console.log(sessionStorage.length);
     Chat.init();
+    getChatLog();
 });

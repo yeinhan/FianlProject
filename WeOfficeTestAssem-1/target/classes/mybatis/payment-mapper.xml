@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="payment">
+	
+	<insert id="payinsert" parameterType="paymentDto">
+		INSERT INTO PAYMENT
+		VALUES(#{user_num}, #{name}, #{p_months}, #{p_number}, #{p_amount}, SYSDATE, ADD_MONTHS(SYSDATE, 6))
+	</insert>
+	
+	<select id="selectPayOne" parameterType="String" resultType="paymentDto">
+		SELECT * FROM PAYMENT
+		WHERE USER_NUM = #{user_num}
+	</select>
+	
+	
+	<!-- 멤버리스트 가져오기 -->
+	<select id="selectMember" resultType="memberDto">
+		SELECT * FROM "User"
+		ORDER BY NAME
+	</select>
+
+	<update id="multiupdate" parameterType="map">
+		UPDATE "User"
+		SET PAY_USER = #{pay_user}
+		WHERE USER_NUM IN
+		<foreach collection="user_num" item="user_num" open="(" separator="," close=")">
+			#{user_num}
+		</foreach>
+	</update>
+	
+	<update id="updateexpire">
+		UPDATE "User"
+		SET EXPIRE = (SELECT P_ENDDATE
+		 			  FROM PAYMENT 
+					  WHERE "User".PAY_USER = PAYMENT.USER_NUM)
+	</update>
+	
+	<!-- 웹페이지 이용가능여부 -->
+	<!-- 0 이상일 경우 이용가능 / 0보다 작거나 NULL일경우(-1) 이용만료 -->
+	<select id="availablePage" parameterType="String" resultType="int">
+		SELECT NVL(TRUNC(TO_DATE(EXPIRE, 'RR/MM/DD')-SYSDATE), -1)
+		FROM "User"
+		WHERE USER_NUM = #{user_num}
+	</select>
+	
+</mapper>

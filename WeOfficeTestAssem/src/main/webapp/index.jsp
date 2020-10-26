@@ -9,4 +9,4 @@
 <body>
 	<jsp:forward page="loginform.do" />
 </body>
-</html>
+</html>	

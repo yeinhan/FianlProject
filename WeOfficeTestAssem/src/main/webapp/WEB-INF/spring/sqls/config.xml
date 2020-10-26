@@ -20,6 +20,7 @@
 		<typeAlias type="com.spring.dto.PaymentDto" alias="paymentDto"/>
 		<typeAlias type="com.spring.dto.UploadFile" alias="uploadFile"/>
 		<typeAlias type="com.spring.email.Email" alias="Email"/>
+		<typeAlias type="com.spring.dto.ReservationDto" alias="ReservationDto"/>
 	</typeAliases>
 	
 	<!-- resource : src/main/resource와 연결 -->
@@ -30,6 +31,7 @@
 		<mapper resource="/mybatis/tasklist-mapper.xml" />
 		<mapper resource="/mybatis/payment-mapper.xml" />
 		<mapper resource="/mybatis/project-mapper.xml" />
+		<mapper resource="/mybatis/reservation-mapper.xml" />
 	</mappers>
 	
 	<!-- Oracle null 처리 -->
