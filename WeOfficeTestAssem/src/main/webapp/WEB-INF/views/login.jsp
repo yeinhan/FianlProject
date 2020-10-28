@@ -11,6 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+<link rel="shortcut icon" type="image⁄x-icon" href="./resources/resource/img/laugh-wink-regular.svg">
 <title>We Office - Login</title>
 
 <!-- Custom fonts for this template-->
@@ -110,7 +111,7 @@
 										<a class="small" href="forgotpwform.do">비밀번호 찾기</a>
 									</div>
 									<div class="text-center">
-										<a class="small" href="registerform.do">회원가입!</a>
+										<a class="small" href="registerform.do">계정이 없으신가요? 회원가입!</a>
 									</div>
 								</div>
 							</div>

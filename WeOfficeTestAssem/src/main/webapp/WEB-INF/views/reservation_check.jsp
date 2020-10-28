@@ -16,6 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+<link rel="shortcut icon" type="image⁄x-icon" href="./resources/resource/img/laugh-wink-regular.svg">
   <title>We Office - 회의실 대관 예약</title>
 
   <!-- Custom fonts for this template-->
@@ -331,11 +332,16 @@ function Chk(){
               <div class="table-responsive">
                
                
+               
                <!-- 내용 -->
-               <p>1.예약시 안내사랑같은거</p>
-               <p>2. </p>
-               <p>3.날짜 선택시 예약창을 띄울예점</p>
-             ${sessionScope.login.user_num }
+               <p>1) 예약 가능한 시간은 9:00부터 18:00까지이며, 1시간을 기준으로 예약을 신청할 수 있습니다.</p>
+               <p>2) 예약 및 조회가 가능한 날짜는 당일을 기준으로 일주일 내로만 가능합니다.그 외  조회 및 예약이 필요한 경우 담당자에게 연락부탁드립니다. </p>
+               <p>3) 한사람의 과도한 독점사항이 발생할 경우 통보없이 강제 취소 되며, 경고조치됩니다.</p>
+               <p>4) 3회 이상의 경고를 받은 경우 강제 제명 처리되오니 양해 부탁드립니다.</p>
+          	   <p>5) 6시간 이상의 회의실 이용이 필요하신 경우 담당자에세 연락 부탁드립니다.</p>
+               <p>6) 그 외 모든 문의 사항은 담당자에게 문의 주십시오</p> 
+   			   <p>				담당자 홍주연(010-1234-5678,kkuknatda@khbyebye.yes)</p> 
+   
       
               </div>
             </div>
@@ -365,7 +371,7 @@ function Chk(){
 	                <tr><td></td><td></td></tr>
 	                 <tr >	
 	                 	<th><span><b>날짜: </b></span></th>
-	              		 <td><span><input type="text" id="testDatepicker" name ="day" value=${day}></span>
+	              		 <td><span><input type="text" id="testDatepicker" name ="day" value=${day}  readonly="readonly"></span>
 	               			<span><button type="button" onclick="Chk()">조회</button></span>
 	               		</td>
 	               	</tr>

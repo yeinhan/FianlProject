@@ -16,6 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+<link rel="shortcut icon" type="image⁄x-icon" href="./resources/resource/img/laugh-wink-regular.svg">
   <title>We Office - 회의실 대관 예약</title>
 
   <!-- Custom fonts for this template-->
@@ -34,17 +35,14 @@
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->	
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
- <script >
+<script >
 $(function() {
     $( "#testDatepicker" ).datepicker({
     	minDate: 0,
     	maxDate: "+7D"
     });
 });
-
-
-		
-  </script>
+</script>
 
  <script type= "text/javascript">
 
@@ -52,7 +50,7 @@ $(function() {
 
 	var doc = document.getElementsByName("day")[0].value;
 	console.log(doc);
-	alert(doc);
+
 	
 	if(doc.trim() == "" || doc == null){
 		alert("날짜를 선택해주세요.");
@@ -60,9 +58,22 @@ $(function() {
 		location.href="reserchk.do?day="+doc;
 	}
 	};
+
+
+	 function check(){
+		 
+		 alert("조회를 먼저해주세요");
 	
+		 document.getElementsByName("day")[0].focus();
+		 document.getElementById("day_in").style.color="#e74a3b";
+	 };
+
+
 	
  </script>
+ 
+ 
+ 
 
 </head>
 
@@ -281,11 +292,13 @@ $(function() {
                
                
                <!-- 내용 -->
-               <p>1.예약시 안내사랑같은거</p>
-               <p>2. </p>
-               <p>3.날짜 선택시 예약창을 띄울예점</p>
-          	<P> ${sessionScope.login.user_num }</P>
-               
+               <p>1) 예약 가능한 시간은 9:00부터 18:00까지이며, 1시간을 기준으로 예약을 신청할 수 있습니다.</p>
+               <p>2) 예약 및 조회가 가능한 날짜는 당일을 기준으로 일주일 내로만 가능합니다.그 외  조회 및 예약이 필요한 경우 담당자에게 연락부탁드립니다. </p>
+               <p>3) 한사람의 과도한 독점사항이 발생할 경우 통보없이 강제 취소 되며, 경고조치됩니다.</p>
+               <p>4) 3회 이상의 경고를 받은 경우 강제 제명 처리되오니 양해 부탁드립니다.</p>
+          	   <p>5) 6시간 이상의 회의실 이용이 필요하신 경우 담당자에세 연락 부탁드립니다.</p>
+               <p>6) 그 외 모든 문의 사항은 담당자에게 문의 주십시오</p> 
+   			   <p>				담당자 홍주연(010-1234-5678,kkuknatda@khbyebye.yes)</p> 
    
                
                
@@ -321,12 +334,12 @@ $(function() {
 	                <tr><td></td><td></td></tr>
 	                 <tr >	
 	                 	<th><span><b>날짜: </b></span></th>
-	              		 <td><span><input type="text" id="testDatepicker" name ="day"></span>
+	              		 <td><span><input type="text" id="testDatepicker" name ="day" readonly="readonly"></span>
 	               			<sapn><button type="button" onclick="Chk()">조회</button></sapn>
 	               		</td>
 	               	</tr>
 	               	<tr >	
-	                 	<th><span><b>※날짜를 선택하여 조회해주세요.</b></span></th>
+	                 	<th><span id="day_in"><b>※날짜를 선택하여 조회해주세요.</b></span></th>
 	                 </tr>
 	               </table>
               </div>
@@ -359,121 +372,121 @@ $(function() {
                  <tbody>
                   <tr>     
                     <th>회의실1</th>
-          			      <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
-	                      					<input type="checkbox" name="reser"  VALUE="1-1"></label></div>
+          			      <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary"  onclick="check()" style="width:80px;height:40px">
+	                      					<input type="checkbox" name="reser"   VALUE="1-1"></label></div>
 	                      </td>
-	                        <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                        <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="1-2"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
-	                      					<input type="checkbox" name="reser"  VALUE="1-3"></label></div>
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
+	                      					<input type="checkbox" name="reser"   VALUE="1-3"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
-	                      					<input type="checkbox" name="reser"  VALUE="1-4"></label></div>
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"  style="width:80px;height:40px">
+	                      					<input type="checkbox" name="reser"   VALUE="1-4"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
-	                      					<input type="checkbox" name="reser"  VALUE="1-5"></label></div>
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
+	                      					<input type="checkbox" name="reser"    VALUE="1-5"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
-	                      					<input type="checkbox" name="reser"  VALUE="1-6"></label></div>
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
+	                      					<input type="checkbox" name="reser"   VALUE="1-6"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="1-7"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="1-8"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
-	                      					<input type="checkbox" name="reser"  VALUE="1-9"></label></div>
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
+	                      					<input type="checkbox" name="reser"   VALUE="1-9"></label></div>
 	                      </td>
                     </tr>
                     <tr>     
                     <th>회의실2</th>
-          			      <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+          			      <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="2-1"></label></div>
 	                      </td>
-	                        <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                        <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="2-2"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="2-3"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="2-4"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="2-5"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="2-6"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="2-7"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="2-8"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="2-9"></label></div>
 	                      </td>
                     </tr>
                     <tr>     
                     <th>회의실3</th>
-          			      <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
-	                      					<input type="checkbox" name="reser"  VALUE="3-1"></label></div>
+          			      <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
+	                      					<input type="checkbox" name="reser" onclick="check()"  VALUE="3-1"></label></div>
 	                      </td>
-	                        <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                        <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="3-2"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="3-3"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="3-4"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="3-5"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="3-6"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="3-7"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="3-8"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="3-9"></label></div>
 	                      </td>
                     </tr>
                  <tr>     
                     <th>회의실4</th>
-          			      <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+          			      <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="4-1"></label></div>
 	                      </td>
-	                        <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                        <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="4-2"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="4-3"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="4-4"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="4-5"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="4-6"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="4-7"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="4-8"></label></div>
 	                      </td>
-	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" style="width:80px;height:40px">
+	                         <td> <div class="btn-group-toggle"  data-toggle="buttons"><label class="btn btn-primary" onclick="check()"   style="width:80px;height:40px">
 	                      					<input type="checkbox" name="reser"  VALUE="4-9"></label></div>
 	                      </td>
                     </tr>

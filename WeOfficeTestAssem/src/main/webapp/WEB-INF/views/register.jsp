@@ -11,6 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+<link rel="shortcut icon" type="image⁄x-icon" href="./resources/resource/img/laugh-wink-regular.svg">
 <title>We Office-Register</title>
 
 <!-- Custom fonts for this template-->
@@ -27,7 +28,19 @@
 
 <script>
 	$(function() {
-		$("#user").submit(
+		$("#joinBtn").on("mouseover", function() {
+			var c = $("#emailCheck").attr("value")
+			if (c == 0) {
+				alert("아이디 중복체크를 해주세요.");
+			} else if ($("#emailCheck").html() == "") {
+				alert("slkfjs");
+			} else {
+				$("#joinBtn").attr("disabled", false);
+			}
+		})
+
+		$("#user")
+				.submit(
 						function() {
 							if ($("#InputPw").val() !== $("#RepeatPw").val()) {
 								// 			$(".pwCheck").html("비밀번호가 일치하지 않습니다.");
@@ -35,7 +48,8 @@
 								$("#RepeatPw").val("");
 
 								return false;
-							} else if ($.trim($("#InputPw")).val() !== $("#InputPw").val()
+							} else if ($.trim($("#InputPw")).val() !== $(
+									"#InputPw").val()
 									|| $.trim($("#Email").val()) !== $("#Email")
 											.val()
 									|| $.trim($("#Id").val()) !== $("#Id")
@@ -75,26 +89,21 @@
 					email : $("#Email").val()
 				},
 				success : function(result) {
-					if (result == 1) {
+					console.log(result);
+					if (result >= 1) {
 						$(".emailCheck").html("중복된 이메일이 있습니다.");
+						$(".emailCheck").attr("value", "0");
 						$("#joinBtn").attr("disabled", "disabled");
-					}
-					else {
+					} else if ($('#Email').val() == "") {
+						$(".emailCheck").html("");
+						$(".emailCheck").attr("value", "0");
+					} else {
 						$(".emailCheck").html("사용 가능한 이메일 입니다.");
+						$(".emailCheck").attr("value", "1");
 						$("#joinBtn").removeAttr("disabled");
 					}
 				},
 			})
-		})
-		$('#Email').click(function() {
-			var email = document.getElementById('#Email');
-			if (email == null) {
-				$("#chkEmail").attr("disabled", "disabled");
-			}else if(email == 'a'){
-				alert("tre");
-				$("#chkEmail").removeAttr("disabled");
-			}
-
 		})
 
 		//비밀번호 재확인
@@ -119,66 +128,74 @@
 <body class="bg-gradient-primary">
 
 	<div class="container">
+		<div class="row justify-content-center ">
+			<div class="col-xl-10 col-lg-12 col-md-9">
+				<div class="card o-hidden border-0 shadow-lg my-5" style="width: 70%; margin: 0 auto;">
+					<div class="card-body p-0">
+						<!-- Nested Row within Card Body -->
+						<div class="row">
+							<!-- 					<div class="col-lg-5 d-none d-lg-block bg-register-image"></div> -->
+							<div class="login_box col-lg-6">
+								<div class="p-5">
+									<div class="text-center">
+										<div class="login_box_font sidebar-brand d-flex align-items-center justify-content-center">
+											<div class="sidebar-brand-icon rotate-n-15">
+												<i class="fas fa-laugh-wink"></i>
+											</div>
+											<div class="sidebar-brand-text mx-3">We Office</div>
+										</div>
 
-		<div class="card o-hidden border-0 shadow-lg my-5">
-			<div class="card-body p-0">
-				<!-- Nested Row within Card Body -->
-				<div class="row">
-					<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-					<div class="col-lg-7">
-						<div class="p-5">
-							<div class="text-center">
-								<h1 class="h4 mb-4 login_box_font">
-									<div class="sidebar-brand-icon rotate-n-15">
-										<i class="fas fa-laugh-wink"></i>
+										<h1 class="h5 text-gray-900 mb-4">Create Account</h1>
 									</div>
-									<div class="sidebar-brand-text mx-3">We Office</div>
-								</h1>
-							</div>
-							<form class="user" id="user" method="post" action="register.do">
-								<div class="form-group">
-									<input type="text" class="form-control form-control-user" id="id" name="u_id" placeholder="Id" required="required">
-								</div>
-								<div class="idCheck"></div>
-								<div class="form-group">
-									<input type="text" class="form-control form-control-user" id="Name" name="name" placeholder="Name" required="required">
+									<form class="user" id="user" method="post" action="register.do">
+										<div class="form-group">
+											<input type="text" class="form-control form-control-user" id="id" name="u_id" placeholder="Id" required="required">
+										</div>
+										<div class="idCheck"></div>
+										<div class="form-group">
+											<input type="text" class="form-control form-control-user" id="Name" name="name" placeholder="Name" required="required">
 
-									<!--                   <div class="col-sm-6"> -->
-									<!--                     <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name"> -->
-									<!--                   </div> -->
-								</div>
-								<div class="form-group">
-									<input type="email" class="form-control form-control-user regi_email" id="Email" name="email" placeholder="Email Address" required="required"> <input id="chkEmail"
-										type="button" class="btn btn-primary btn-user btn-block regi_email_btn" value="Check Email" style="width: 30%;">
-								</div>
-								<div class="emailCheck" style="margin-top: 0px;"></div>
-								<div class="form-group row">
-									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="password" class="form-control form-control-user" id="InputPw" name="password" placeholder="Password" required="required">
+											<!--                   <div class="col-sm-6"> -->
+											<!--                     <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name"> -->
+											<!--                   </div> -->
+										</div>
+										<div class="form-group">
+											<input type="email" class="form-control form-control-user regi_email" id="Email" name="email" placeholder="Email Address" required="required"> <input
+												id="chkEmail" type="button" class="btn btn-primary btn-user btn-block regi_email_btn" value="Check Email" style="width: 30%;">
+										</div>
+										<div id="emailCheck" class="emailCheck" style="margin-top: 0px;" value=0></div>
+										<div class="form-group row">
+											<div class="col-sm-6 mb-3 mb-sm-0">
+												<input type="password" class="form-control form-control-user" id="InputPw" name="password" placeholder="Password" required="required">
+											</div>
+											<div class="col-sm-6">
+												<input type="password" class="form-control form-control-user" id="RepeatPw" placeholder="Repeat Password" required="required">
+											</div>
+										</div>
+										<div class="pwCheck"></div>
+										<input id="joinBtn" type="submit" class="btn btn-primary btn-user btn-block" value="가입하기">
+										<!-- 								<hr> -->
+										<!-- 								<a href="index.jsp" class="btn btn-google btn-user btn-block"> <i class="fab fa-google fa-fw"></i> Register with Google -->
+										<!-- 								</a> <a href="index.jsp" class="btn btn-facebook btn-user btn-block"> <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook -->
+										<!-- 								</a> -->
+									</form>
+									<hr>
+									<div class="text-center">
+										<a class="small" href="forgotpwform.do">비밀번호 찾기</a>
 									</div>
-									<div class="col-sm-6">
-										<input type="password" class="form-control form-control-user" id="RepeatPw" placeholder="Repeat Password" required="required">
+									<div class="text-center">
+										<a class="small" href="loginform.do">이미 계정이 있으신가요? 로그인!</a>
 									</div>
+									
 								</div>
-								<div class="pwCheck"></div>
-								<input id="joinBtn" type="submit" class="btn btn-primary btn-user btn-block" value="가입하기">
-								<!-- 								<hr> -->
-								<!-- 								<a href="index.jsp" class="btn btn-google btn-user btn-block"> <i class="fab fa-google fa-fw"></i> Register with Google -->
-								<!-- 								</a> <a href="index.jsp" class="btn btn-facebook btn-user btn-block"> <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook -->
-								<!-- 								</a> -->
-							</form>
-							<hr>
-							<div class="text-center">
-								<a class="small" href="forgotpwform.do">비밀번호 찾기</a>
-							</div>
-							<div class="text-center">
-								<a class="small" href="loginform.do">이미 계정이 있으신가요? 로그인!</a>
 							</div>
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
+
 
 	</div>
 

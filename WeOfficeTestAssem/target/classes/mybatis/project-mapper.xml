@@ -37,11 +37,32 @@
 		WHERE P_ID = #{p_id}
 	</delete>
 	
+	<!-- topbar alerts -->
+	<select id="selectNewRegiPjt" resultType="projectDto">
+		SELECT * FROM PROJECT
+		WHERE TRUNC(TO_DATE(P_STARTDATE, 'RR/MM/DD') - SYSDATE) >= 0
+		ORDER BY P_ID DESC
+	</select>
+	
+	<select id="selectPjtNotice" resultType="projectDto">
+		SELECT * FROM PROJECT
+	    ORDER BY P_ENDDATE
+	</select>
+	
+	<select id="selectPjtNotice_Desc" resultType="projectDto">
+		SELECT * FROM PROJECT
+	    ORDER BY P_ENDDATE DESC
+	</select>
+	
 	
 	<!-- 멤버리스트 가져오기 -->
 	<select id="selectMember" resultType="memberDto">
 		SELECT * FROM "User"
 		ORDER BY NAME
+	</select>
+	
+	<select id="selectAllWks" resultType="workspaceDto">
+		SELECT * FROM WORKSPACE
 	</select>
 	
 </mapper>

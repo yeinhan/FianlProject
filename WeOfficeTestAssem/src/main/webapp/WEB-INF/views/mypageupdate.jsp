@@ -12,6 +12,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+
+<link rel="shortcut icon" type="image⁄x-icon" href="./resources/resource/img/laugh-wink-regular.svg">
 <title>We Office - MyPage</title>
 
 

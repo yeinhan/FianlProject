@@ -1,11 +1,70 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<!-- 제이쿼리 -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
+
+<script type="text/javascript">
+$(function(){
+   	$.ajax({
+		type: "post",
+		url: "topalerts.do",
+		contentType: "application/json",
+		dataType: "json", 
+		success: function(msg) {
+			$.each(msg, function(key, val) {
+				if(val == null || val == "") {
+					var tag = "<a class='dropdown-item d-flex align-items-center' href='#' style='height:70px;'>"
+								+"<div class='mr-3'>"
+									+"<div class='icon-circle bg-danger'>"
+										+"<i class='fas fa-exclamation-triangle text-white'></i>"
+									+"</div>"
+								+"</div>"
+								+"<div>"
+									+"<span class='font-weight-bold'>신규 등록된 프로젝트가 없습니다.</span>"
+								+"</div>"
+							+"</a>";
+
+					$("#addtest").append(tag);
+				} else {
+					var list = val;
+					for(var i=0; i<list.length; i++) {
+						var str = list[i];
+							
+						var tag = "<a class='dropdown-item d-flex align-items-center' href='workspace.do?p_id="+str.p_id+"' style='height:60px;'>"
+									+"<div class='mr-3'>"
+										+"<div class='icon-circle bg-primary'>"
+											+"<i class='fas fa-file-alt text-white'></i>"
+										+"</div>"
+									+"</div>"
+									+"<div>"
+										+"<div class='small text-gray-700'>"+str.p_enddate+"</div>"
+										+"<span class='font-weight-bold'>"+str.p_title+"</span>"
+									+"</div>"
+								+"</a>";
+					
+						$("#addtest").append(tag);
+					}
+				}
+				$("#countbadge").text(list.length);
+			});
+		},
+		error: function() {
+			alert("실패");
+		}
+	});	
+});
+</script>
+
 <body>
 <!-- Topbar -->
 				<nav
@@ -18,19 +77,19 @@
 					</button>
 
 					<!-- Topbar Search -->
-					<form
-						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-						<div class="input-group">
-							<input type="text" class="form-control bg-light border-0 small"
-								placeholder="Search for..." aria-label="Search"
-								aria-describedby="basic-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary" type="button">
-									<i class="fas fa-search fa-sm"></i>
-								</button>
-							</div>
-						</div>
-					</form>
+<!-- 					<form -->
+<!-- 						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"> -->
+<!-- 						<div class="input-group"> -->
+<!-- 							<input type="text" class="form-control bg-light border-0 small" -->
+<!-- 								placeholder="Search for..." aria-label="Search" -->
+<!-- 								aria-describedby="basic-addon2"> -->
+<!-- 							<div class="input-group-append"> -->
+<!-- 								<button class="btn btn-primary" type="button"> -->
+<!-- 									<i class="fas fa-search fa-sm"></i> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</form> -->
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
@@ -59,52 +118,26 @@
 								</form>
 							</div></li>
 
+
+						<!-- 알람 작업부분 -->
 						<!-- Nav Item - Alerts -->
-						<li class="nav-item dropdown no-arrow mx-1"><a
-							class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
-								<span class="badge badge-danger badge-counter">3+</span>
-						</a> <!-- Dropdown - Alerts -->
-							<div
-								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="alertsDropdown">
-								<h6 class="dropdown-header">Alerts Center</h6>
-								<a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="mr-3">
-										<div class="icon-circle bg-primary">
-											<i class="fas fa-file-alt text-white"></i>
-										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">December 12, 2019</div>
-										<span class="font-weight-bold">A new monthly report is
-											ready to download!</span>
-									</div>
-								</a> <a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="mr-3">
-										<div class="icon-circle bg-success">
-											<i class="fas fa-donate text-white"></i>
-										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">December 7, 2019</div>
-										$290.29 has been deposited into your account!
-									</div>
-								</a> <a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="mr-3">
-										<div class="icon-circle bg-warning">
-											<i class="fas fa-exclamation-triangle text-white"></i>
-										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">December 2, 2019</div>
-										Spending Alert: We've noticed unusually high spending for your
-										account.
-									</div>
-								</a> <a class="dropdown-item text-center small text-gray-500"
-									href="#">Show All Alerts</a>
-							</div></li>
+						<li class="nav-item dropdown no-arrow mx-1">
+							<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
+								role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-bell fa-fw"></i> 
+								<!-- Counter - Alerts -->
+								<span class="badge badge-danger badge-counter" id="countbadge"></span>
+							</a>
+	
+							<!-- Dropdown - Alerts -->
+							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+								<h6 class="dropdown-header" id="alerts-header">Today's new project</h6>
+								<div id="addtest">
+								</div>
+	<!-- 					<a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>  -->
+							</div>
+						</li>
+
 
 						<!-- Nav Item - Messages -->
 						<li class="nav-item dropdown no-arrow mx-1"><a

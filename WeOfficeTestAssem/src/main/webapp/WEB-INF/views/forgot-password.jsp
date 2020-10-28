@@ -14,6 +14,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+<link rel="shortcut icon" type="image⁄x-icon" href="./resources/resource/img/laugh-wink-regular.svg">
 <title>We Office - Forgot Password</title>
 
 <!-- Custom fonts for this template-->
@@ -65,15 +66,13 @@
 
 		<!-- Outer Row -->
 		<div class="row justify-content-center">
-
 			<div class="col-xl-10 col-lg-12 col-md-9">
-
-				<div class="card o-hidden border-0 shadow-lg my-5">
+				<div class="card o-hidden border-0 shadow-lg my-5" style="width: 70%; margin: 0 auto;">
 					<div class="card-body p-0">
 						<!-- Nested Row within Card Body -->
 						<div class="row">
-							<div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-							<div class="col-lg-6">
+							<!-- 							<div class="col-lg-6 d-none d-lg-block bg-password-image"></div> -->
+							<div class="login_box col-lg-6">
 								<div class="p-5">
 									<div class="text-center">
 										<h1 class="h4 text-gray-900 mb-2">비밀번호를 잊으셨나요??</h1>
@@ -92,7 +91,7 @@
 									</form>
 									<hr>
 									<div class="text-center">
-										<a class="small" href="register.do">회원가입!</a>
+										<a class="small" href="registerform.do">회원가입!</a>
 									</div>
 									<div class="text-center">
 										<a class="small" href="loginform.do">계정이 있으신가요? 로그인</a>
@@ -102,7 +101,6 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 
 		</div>

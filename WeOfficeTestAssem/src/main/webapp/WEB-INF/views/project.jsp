@@ -14,6 +14,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+<link rel="shortcut icon" type="image⁄x-icon" href="./resources/resource/img/laugh-wink-regular.svg">
   <title> We Office - Project </title>
 
   <!-- Custom fonts for this template-->
@@ -451,15 +452,9 @@ function modalReset() {
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-          <div class="contentTopArea" style="width:35%;">
+          <div class="contentTopArea">
           	<h1 class="h6 mb-1 text-gray-900" style="padding-top:16px; padding-left:35px; font-weight:bold; font-size:20px;">
           		<i class="fas fa-list"></i>&nbsp;&nbsp;&nbsp;Project List</h1>
-          </div>
-          <div class="contentTopArea" style="width:35%;">
-          	<ul class="h6 mb-1 text-gray-800" style="padding-top:20px; font-weight:bold; font-size:13px;">
-          	</ul>
-          </div>
-          <div class="contentTopArea" style="width:30%;">
           </div>
           <br><br><br>
         
@@ -544,20 +539,20 @@ function modalReset() {
 									<sup>
 									<!-- 오늘 날짜 가져오기 -->
 									<jsp:useBean id="now" class="java.util.Date"/>
-									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowdate"/>
-									<fmt:parseDate value="${nowdate }" pattern="yyyy-MM-dd" var="sysdate"/>
+									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowdate"/><!-- 날짜 정보를 담고 있는 객체를 포맷팅하여 출력 -->
+									<fmt:parseDate value="${nowdate}" pattern="yyyy-MM-dd" var="sysdate"/><!-- String -> Date -->
 									<fmt:parseNumber value="${sysdate.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
 									
 									<!-- 프로젝트 만료일 가져오기 -->
-									<fmt:parseDate value="${dto.p_enddate}" var="pjtEnddate" pattern="yyyy-MM-dd"/>
+									<fmt:parseDate value="${dto.p_enddate}" var="pjtEnddate" pattern="yyyy-MM-dd"/><!-- String -> Date -->
 									<fmt:parseNumber value="${pjtEnddate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/>
 
 									<!-- 프로젝트 기간 만료 X -->
-									<c:if test="${endDate-today >= 0 }">
+									<c:if test="${endDate-today >= 0}">
 										<i class="far fa-calendar"></i>
 									</c:if>
 									<!-- 프로젝트 기간 만료 O -->
-									<c:if test="${endDate-today < 0 }">
+									<c:if test="${endDate-today < 0}">
 										<i class="far fa-calendar-check"></i>
 									</c:if>
 									

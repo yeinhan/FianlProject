@@ -24,9 +24,10 @@
 		resultType="memberDto">
 		SELECT *
 		FROM "User"
-		WHERE U_ID
-		= #{u_id}
+		WHERE U_ID = #{u_id}
 		AND PASSWORD = #{password}
+		AND AUTHKEY = 1
+		
 	</select>
 
 	<select id="selectOne" parameterType="int"
@@ -47,6 +48,7 @@
 		SELECT COUNT(*)
 		FROM "User"
 		WHERE EMAIL = #{email}
+		AND AUTHKEY = 1
 	</select>
 
 	<insert id="register" parameterType="memberDto">

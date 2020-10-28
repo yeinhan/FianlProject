@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
+
 
 <head>
 
@@ -12,6 +15,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+<link rel="shortcut icon" type="image⁄x-icon" href="./resources/resource/img/laugh-wink-regular.svg">
 <title>We Office - Main</title>
 
 <!-- Custom fonts for this template-->
@@ -48,13 +52,13 @@
 					<!-- content -->
 
 					<!-- DataTales Example -->
-          <div class="card shadow mb-4">
+          <div class="card shadow mb-4" style="max-width:70%;">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Member Page</h6>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <div class="table-responsive" >
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align:center;">
                   <thead>
                   
                     <tr>
@@ -68,22 +72,27 @@
                   </thead>
                  
                   <tbody>
+                  <c:choose>
+		<c:when test="${empty member}">
+			<tr>
+				<td colspan ="6 align="conter"> ----------멤버가 없습니다.---------</td>
+			</tr>
+		</c:when>
+		<c:otherwise>
+                  
+                 	<c:forEach  items="${member}" var="m" varStatus="status">
+									
                     <tr>
-                      <td>김김김</td>
-                      <td>kim@naver.com</td>
-                      <td>0101231231</td>
-                      <td>영업지원</td>
-                      <td>기술</td>
+                      <td><a href="m_detail.do?user_num=${m.user_num}">${m.name}</td>
+                      <td>${m.email}</td>
+                      <td>${m.phone}</td>
+                      <td>${m.department}</td>
+                      <td></td>
                       <td></td>
                     </tr>
-                    <tr>
-                      <td>박박박</td>
-                      <td>Park@naver.com</td>
-                      <td>010124124</td>
-                      <td>인사팀</td>
-                      <td>인사지원</td>
-                      <td></td>
-                    </tr>
+              	</c:forEach>
+              	</c:otherwise>
+              	</c:choose>
                   </tbody>
                 </table>
               </div>

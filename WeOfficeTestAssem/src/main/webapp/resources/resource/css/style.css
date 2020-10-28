@@ -586,7 +586,7 @@
 }
 
 .channels {
-  background: #2E3136;
+  background: #f8f9fc;
   display: -webkit-box;
   display: flex;
   -webkit-box-orient: vertical;
@@ -594,6 +594,7 @@
           flex-direction: column;
   -webkit-box-flex: 0;
           flex: 0 0 240px;
+   border-right: 3px solid #e6e8ec;
 }
 .channels .channels-header {
   cursor: pointer;
@@ -603,8 +604,8 @@
           align-items: center;
   -webkit-box-flex: 0;
           flex: 0 0 56px;
-  padding: 28px 24px;
-  box-shadow: 0 1px 0 #24272b, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  padding: 16px 24px;
+  box-shadow: 0 1px 0 #e6e8ec, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   -webkit-transition: background 0.15s ease;
   transition: background 0.15s ease;
 }
@@ -624,7 +625,7 @@
   transition: stroke-dasharray 0.2s ease, transform 0.2s ease, -webkit-transform 0.2s ease;
 }
 .channels .channels-header:hover, .channels .channels-header:focus {
-  background: #282b2f;
+  background: #f8f9fc;
 }
 .channels .channels-header:focus use {
   stroke-dasharray: 14;
@@ -635,8 +636,10 @@
   margin: 0 -20px 0 -20px;
 }
 .channels .channels-header-name {
-  font-size: 1rem;
+  font-size: 20px;
+  margin-bottom:0;
   font-weight: 500;
+  color: #3a3b45!important;
 }
 .channels .channel {
   cursor: pointer;
@@ -645,12 +648,14 @@
   -webkit-box-align: center;
           align-items: center;
   padding: 8px 20px 10px 20px;
-  opacity: 0.3;
+  opacity: 0.8;
   width: 100%;
+  color: #3a3b45!important;
 }
 .channels .channel .button {
   display: none;
   opacity: 0.2;
+  background: 0;
 }
 .channels .channel .button:hover, .channels .channel .button:focus {
   opacity: 1;
@@ -662,24 +667,28 @@
   display: block;
 }
 .channels .channel .channel-name {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 300;
+  color: #3a3b45!important;
 }
 .channels .channel .button:first-of-type {
   margin-left: auto;
   margin-right: 8px;
 }
 .channels .channel .button {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
 }
 .channels .channel-text {
   position: relative;
 }
 .channels .channel-text.active, .channels .channel-text:hover, .channels .channel-text:focus {
-  background: -webkit-gradient(linear, left top, right top, color-stop(85%, #282b30), to(#2e3136));
-  background: linear-gradient(to right, #282b30 85%, #2e3136);
+  background: -webkit-gradient(linear, left top, right top, color-stop(85%, #e6e8ec), to(#e6e8ec));
+  background: linear-gradient(to right, #e6e8ec 85%, #e6e8ec);
+
 }
+
 .channels .channel-text.active::before, .channels .channel-text:hover::before, .channels .channel-text:focus::before {
   content: " ";
   width: 2px;
@@ -707,7 +716,7 @@
   cursor: pointer;
   margin-top: 20px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.3);
+  color: #3a3b45!important;
   font-size: 0.87rem;
   letter-spacing: 0.04rem;
   -webkit-transition: color 0.2s linear;
@@ -716,7 +725,7 @@
   position: relative;
 }
 .channels .channels-list .channels-list-header:hover, .channels .channels-list .channels-list-header:focus {
-  color: #FFF;
+  color: black;
 }
 .channels .channels-list .channels-list-header:hover::after, .channels .channels-list .channels-list-header:focus::after {
   opacity: 1;
@@ -788,12 +797,13 @@
   -webkit-box-flex: 0;
           flex: 0 0 57px;
   padding: 0 20px 0 20px;
-  background: #36393E;
+/*   background: #36393E; */
   border-bottom: 1px solid #303337;
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
           align-items: center;
+  color: #3a3b45!important;
 }
 .menu .menu-name {
   font-weight: bold;
@@ -805,11 +815,11 @@
   content: "#";
   margin-right: 2px;
   font-weight: 300;
-  color: #8A8E94;
+/*   color: #8A8E94; */
 }
 
 .chat {
-  background: #36393E;
+/*   background: #36393E; */
   -webkit-box-flex: 1;
           flex: 1;
   position: relative;
@@ -936,7 +946,7 @@
 }
 
 /*chatting*/
-.chat_wrap .header { font-size: 14px; padding: 15px 0; background: #F18C7E; color: white; text-align: center;  }
+.chat_wrap .header { font-size: 14px; padding: 15px 0; background: #4e73df; color: white; text-align: center;  }
  
 .chat_wrap .chat { padding-bottom: 80px; height: 582px; }
 .chat_wrap .chat ul { width: 100%; list-style: none; height: 100%; overflow: auto;}

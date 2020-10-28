@@ -107,7 +107,7 @@
             
       <!-- 마이페이지 -->
       <li class="nav-item">
-        <a class="nav-link" href="mypage.do" style="padding-top:3px;">
+        <a class="nav-link" href="mypage.do?user_num=${sessionScope.login.user_num}" style="padding-top:3px;">
           <i class="fas fa-user-edit" style="width:17px;"></i>
           <span>마이페이지</span></a>
       </li>
