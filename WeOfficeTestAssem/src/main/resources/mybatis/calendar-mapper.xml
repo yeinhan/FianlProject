@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="calendar">
+	<resultMap type="CalendarDto" id="calendarMap">
+		<result property="_id" column="P_ID" />
+		<result property="title" column="P_TITLE" />
+		<result property="start" column="P_STARTDATE" />
+		<result property="end" column="P_ENDDATE" />
+		<result property="description" column="P_INFO" />
+		<result property="type" column="P_PUB" />
+		<result property="username" column="USER_NUM" />
+	</resultMap>
+	<select id="selectList" resultMap="calendarMap">
+		SELECT *
+		FROM PROJECT
+	</select>
+
+	<insert id="insert">
+		INSERT INTO
+		PROJECT
+		VALUES(P_ID_SEQ.NEXTVAL,#{title},#{description},#{type},#{username},#{start},#{end})
+	</insert>
+
+	<select id="selectCheck" resultMap="calendarMap"
+		parameterType="calendarDto">
+		SELECT *
+		FROM PROJECT
+		WHERE (P_STARTDATE >= #{start} AND
+		#{end} >= P_ENDDATE)
+	</select>
+
+	<update id="update" parameterType="calendarDto">
+		UPDATE PROJECT
+		SET
+		P_TITLE=#{title},P_INFO=#{description},P_PUB=#{type},
+		P_STARTDATE=#{start}, P_ENDDATE=#{end}
+		WHERE P_ID=#{_id}
+	</update>
+
+	<delete id="delete" parameterType="calendarDto">
+		DELETE
+		FROM PROJECT
+		WHERE
+		P_ID=#{_id}
+	</delete>
+
+	<update id="dropUpdate" parameterType="calendarDto">
+		UPDATE PROJECT
+		SET
+		P_STARTDATE=#{start}, P_ENDDATE=#{end}
+		WHERE P_ID=#{_id} 
+	</update>
+
+	<select id="selectScheOne" parameterType="calendarDto"
+		resultMap="calendarMap">
+		SELECT *
+		FROM PROJECT
+		WHERE P_ID=#{_id}
+	</select>
+	
+</mapper>

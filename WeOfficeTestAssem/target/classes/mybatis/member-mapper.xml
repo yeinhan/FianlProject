@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+	<resultMap id="memberMap" type="memberDto">
+
+		<result column="USER_NUM" property="user_num" />
+
+		<result column="NAME" property="name" />
+
+		<result column="EMAIL" property="email" />
+
+		<result column="PHONE" property="phone" />
+
+		<result column="DEPARTMENT" property="department" />
+
+	</resultMap>
+
+	<!-- login -->
+	<select id="login" parameterType="memberDto"
+		resultType="memberDto">
+		SELECT *
+		FROM "User"
+		WHERE U_ID = #{u_id}
+		AND PASSWORD = #{password}
+		AND AUTHKEY = 1
+		
+	</select>
+
+	<select id="selectOne" parameterType="int"
+		resultType="memberDto">
+		SELECT NAME, U_ID
+		FROM "User"
+		WHERE USER_NUM = #{user_num}
+	</select>
+
+	<select id="check_id" parameterType="String" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM "User"
+		WHERE U_ID = #{u_id}
+	</select>
+
+	<select id="check_email" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM "User"
+		WHERE EMAIL = #{email}
+		AND AUTHKEY = 1
+	</select>
+
+	<insert id="register" parameterType="memberDto">
+		INSERT INTO "User"
+		VALUES(USERNOSEQ.NEXTVAL, #{u_id}, #{name}, #{password},
+		#{email},NULL, NULL,NULL,NULL,NULL,NULL,NULL)
+	</insert>
+
+	<select id="getPw" parameterType="Email" resultType="String">
+		SELECT
+		PASSWORD
+		FROM "User"
+		WHERE U_ID= #{u_id} AND EMAIL=#{email}
+	</select>
+
+	<update id="getKey" parameterType="memberDto">
+		UPDATE "User"
+		SET AUTHKEY =
+		#{authkey}
+		WHERE EMAIL = #{email}
+	</update>
+
+	<update id="alterKey" parameterType="memberDto">
+		UPDATE "User"
+		SET AUTHKEY = 1
+		WHERE EMAIL = #{email}
+	</update>
+
+<!-- member.jsp -->
+	<select id="selectOne_MY" parameterType="String"
+		resultType="memberDto">
+		SELECT USER_NUM, NAME, DEPARTMENT, PHONE, EMAIL, ADDRESS
+		FROM "User"
+		WHERE USER_NUM = #{user_num}
+	</select>
+
+
+	<update id="m_update" parameterType="memberDto">
+		UPDATE "User"
+		SET NAME =
+		#{name} , EMAIL = #{email}, PHONE = #{phone},
+		ADDRESS = #{address},
+		DEPARTMENT = #{department}
+		WHERE USER_NUM = #{user_num}
+
+	</update>
+
+
+	<delete id="m_delete" parameterType="String">
+		DELETE FROM "User"
+		WHERE
+		USER_NUM = #{u_no}
+
+	</delete>
+
+	<!-- 멤버리스트 -->
+
+	<select id="memberlist" resultMap="memberMap">
+		SELECT USER_NUM, NAME, EMAIL, PHONE, DEPARTMENT
+		FROM "User"
+
+	</select>
+	 	<!-- 멤버 프로필 -->
+ 
+  		<select id="m_profile"  parameterType="String" resultType="memberDto">
+  		SELECT USER_NUM, NAME, EMAIL, PHONE, DEPARTMENT, COMPANY, ADDRESS
+  		FROM "User" WHERE USER_NUM = #{user_num}
+  		
+  	</select>
+  	
+</mapper>

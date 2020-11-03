@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="workspace">
+
+	<select id="selectList" parameterType="String" resultType="workspaceDto">
+		SELECT * FROM WORKSPACE
+		WHERE P_ID = #{p_id}
+		ORDER BY W_ID DESC
+	</select>
+	
+	<insert id="insert" parameterType="workspaceDto">
+		INSERT INTO WORKSPACE
+		VALUES(W_ID_SEQ.NEXTVAL, #{w_title}, #{p_id})
+	</insert>
+	
+	<update id="update" parameterType="workspaceDto">
+		UPDATE WORKSPACE
+		SET W_TITLE = #{w_title}
+		WHERE W_ID = #{w_id}
+	</update>
+	
+	<delete id="delete" parameterType="workspaceDto">
+		DELETE FROM WORKSPACE
+		WHERE W_ID = #{w_id}
+	</delete>
+
+
+	<!-- 프로젝트 가져오기 -->
+	<select id="selectpjtOne" parameterType="String" resultType="projectDto">
+		SELECT * FROM PROJECT
+		WHERE P_ID = #{p_id}
+	</select>
+	
+	<select id="selectTaskList" resultType="tasklistDto">
+		SELECT * FROM TASKLIST
+		ORDER BY T_ID DESC
+	</select>
+	
+
+	<!-- 첨부파일 삽입 -->
+	<insert id="fileinsert" parameterType="uploadFile">
+		INSERT INTO UPLOADFILE
+		VALUES(#{p_id}, #{name})
+	</insert>
+
+	<!-- 파일리스트 불러오기 -->
+	<select id="selectFileList" resultType="uploadFile">
+		SELECT * FROM UPLOADFILE
+		WHERE P_ID = #{p_id}
+	</select>
+	
+	<!-- 첨부파일 삭제 -->
+	<delete id="filedelete" parameterType="uploadFile">
+		DELETE FROM UPLOADFILE
+		WHERE P_ID = #{p_id} AND NAME = #{name}
+	</delete>
+	
+</mapper>
