@@ -76,6 +76,53 @@
 </style>
 
 <script type="text/javascript">
+$(function(){
+	$("#pwCheck").click(function() {
+		$.ajax({
+			url : "check_pw.do", 
+			type : "POST",
+			data : {
+				u_id: "${u_id}",
+				password : $("#password").val()
+			},
+			success :
+				function(result) {
+				if (result == 1) {	//비번 일치
+					$("#pwCheck").click(function(){
+						$('#pwModal').modal();
+					})
+				} else {			//비번 불일치
+					$("#pwCheck").click(function(){
+						$('#notPwModal').modal();
+					})
+					
+				}
+			},
+		})
+	});
+	
+
+	//비밀번호 재확인
+	$("#uppassword, #uppassword2").keyup(function() {
+		$.ajax({
+			url : "mypage.do",
+			type : "GET",
+			data : {},
+			success : function() {
+				if ($("#uppassword").val() !== $("#uppassword2").val()) {
+					$("#uppassword").css("background",'rgba(255,17,17,0.5)');
+					$("#uppassword2").css("background",'rgba(255,17,17,0.5)');
+// 					$(".check").css("bakcground-color","#4CAF50");
+				} else {
+					$("#uppassword").css("background",'rgba( 204, 255, 204, 0.5 )');
+					$("#uppassword2").css("background",'rgba( 204, 255, 204, 0.5 )');
+				}
+			}
+		})
+	})
+
+})
+
 window.onload = function() {
 	var IMP = window.IMP;
 	IMP.init('imp36049149');
@@ -254,7 +301,7 @@ function selectMember(num, pay_user) {
 												<span class="text mypage-btn">회원정보 변경 </span>
 											</button>
 										</form>
-										<button type="button" class="btn btn-danger btn-icon-split mypage-btn" data-toggle="modal" data-target="#outModal" style="float: right; margin-right: 10px;" >
+										<button type="button" class="btn btn-danger btn-icon-split mypage-btn" data-toggle="modal" data-target="#outModal" style="float: right; margin-right: 10px;">
 											<span class="text mypage-btn">회원 탈퇴하기 </span>
 										</button>
 
@@ -268,132 +315,156 @@ function selectMember(num, pay_user) {
 						<div class="col-xl-4 col-lg-5" style="max-width: 55%">
 							<div class="card shadow mb-4">
 
-
-
-
-							<!-- 결제 : 로그인 안되었을 경우 출력 x -->
-							<c:choose>
-								<c:when test="${empty login_user }">
-								</c:when>
-								<c:otherwise>
-									<div class="card shadow mb-4">
-										<!-- Cart Header -->
-										<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-											<h6 class="m-0 font-weight-bold text-primary">결제하기</h6>
-										</div>
-										<!-- Card Body -->
-										<div class="card-body">
-											<form method="post" action="">
-												<div class="selMonthArea" style="padding: 10px;">
-													<label class="tw-account-settings-pane-label">이용기간</label>
-													<div class="selectmonth" id="1mon-parent" style="padding-left: 22px;">
-														<input type="radio" value="10000" name="paymonth" id="1" onclick="radioBtnSelect(this.value);" required><label for="1" style="margin-bottom: 0rem;">&nbsp;
-															&#8361;10,000 / 1개월</label>
-													</div>
-													<div class="selectmonth" id="3mon-parent" style="padding-left: 22px;">
-														<input type="radio" value="27000" name="paymonth" id="3" onclick="radioBtnSelect(this.value);" required><label for="3" style="margin-bottom: 0rem;">&nbsp;
-															&#8361;27,000 / 3개월</label>
-													</div>
-													<div class="selectmonth" id="6mon-parent" style="padding-left: 22px;">
-														<input type="radio" value="51000" name="paymonth" id="6" onclick="radioBtnSelect(this.value);" required><label for="6" style="margin-bottom: 0rem;">&nbsp;
-															&#8361;51,000 / 6개월</label>
-													</div>
-													<div class="selectmonth" id="12mon-parent" style="padding-left: 20px;">
-														<input type="radio" value="96000" name="paymonth" id="12" onclick="radioBtnSelect(this.value);" required><label for="12" style="margin-bottom: 0rem;">&nbsp;
-															&#8361;96,000 / 12개월</label>
-													</div>
-												</div>
-												<br> <br> <br> <br> <br>
-
-												<div class="selNumArea" style="padding: 10px;">
-													<label class="tw-account-settings-pane-label">참여멤버 수</label> <select class="selectnum">
-														<c:forEach var="i" begin="1" end="${count_user }" step="1">
-															<option value="${i }"><c:out value="${i }" /></option>
-														</c:forEach>
-													</select>
-												</div>
-
-												<div class="btnArea">
-													<input type="button" class="btn btn-info btn-icon-split" id="paybtn" style="width: 100px;" value="결제" onclick="payPopup();">
-													<c:choose>
-														<c:when test="${empty payment_user }">
-														</c:when>
-														<c:otherwise>
-															<input type='button' class='btn btn-warning btn-icon-split' id='selectBtn' style='width: 100px; margin-right: 10px;' value='멤버선택'
-																onclick='selectMember(${payment_user.p_number }, ${payment_user.user_num });' />
-														</c:otherwise>
-													</c:choose>
-												</div>
-											</form>
-										</div>
-									</div>
-								</c:otherwise>
-							</c:choose>
-							<!-- 결제 끝 -->
-						</div>
-					</div>
-
-
-					<!-- Content Row -->
-					<div class="row" style="width:100%">
-
-						<!-- 예약조회 -->
-
-
-						<div class="col-lg-8 mb-7">
-
-							<div class="card shadow mb-4">
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">예약조회</h6>
+								<!-- Cart Header -->
+								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">비밀번호 변경</h6>
+									<div class="dropdown no-arrow"></div>
 								</div>
+								<!-- Card Body -->
 								<div class="card-body">
-									<div class="table-responsive">
-										<table class="table table-bordered" id="dataTable" style="text-align: center" width="100%" cellspacing="0">
-											<thead>
-												<tr>
-													<th>NO.</th>
-													<th>예약번호</th>
-													<th>예약날짜</th>
-													<th>회의실</th>
-													<th>예약시간</th>
-													<th>예약취소</th>
-
-												</tr>
-											</thead>
-
-											<tbody>
-												<c:choose>
-													<c:when test="${empty r_list}}">
-														<tr>
-															<td colspan="6 align="conter">---------예약내역이없습니다.---------</td>
-														</tr>
-													</c:when>
-													<c:otherwise>
-														<c:forEach items="${r_list}" var="reser" varStatus="status">
-															<tr>
-																<td>${status.index}</td>
-																<td>${reser.reser_no}</td>
-																<td>${reser.day}</td>
-																<td>회의실 ${reser.room}</td>
-																<td>${reser.time}</td>
-																<td><button onclick="location.href='r_delete.do?u_no=${u_no}&sub=${reser.sub}&reser_no=${reser.reser_no}'" class="mypage-btn btn btn-danger btn-icon-split"
-																		style="float: center; width: 80px; height: 35px">
-																		<span class="text mypage-btn">예약취소 </span>
-																	</button></td>
-
-															</tr>
-														</c:forEach>
-													</c:otherwise>
-												</c:choose>
-											</tbody>
-										</table>
+									<div class="chart-area pt-4 pb-2">
+										<form method="post" action="" class="user">
+											<div class="form-group">
+												<div class="col-sm-6 mb-3 mb-sm-0" style="max-width: 100%;">
+													<%-- 													<input type="hidden" class="form-control form-control-user" id="u_id" name="u_id" value="${sessionScope.login.u_id }"placeholder="Password"> --%>
+													<input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+												</div>
+												<div class="my-2"></div>
+												<!-- 												<div class="col-sm-6" style="max-width: 100%;"> -->
+												<!-- 													<input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password"> -->
+												<!-- 												</div> -->
+											</div>
+											<div class="my-2"></div>
+											<input type="button" id="pwCheck" class="btn btn-success btn-icon-split" value="비밀번호 변경" style="width: 112px; height: 38px; font-size: 13px; float: right;">
+										</form>
 									</div>
 								</div>
 							</div>
 
+							<div class="card shadow mb-4">
+								<!-- 결제 : 로그인 안되었을 경우 출력 x -->
+								<c:choose>
+									<c:when test="${empty login_user }">
+									</c:when>
+									<c:otherwise>
+										<div class="card shadow mb-4">
+											<!-- Cart Header -->
+											<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+												<h6 class="m-0 font-weight-bold text-primary">결제하기</h6>
+											</div>
+											<!-- Card Body -->
+											<div class="card-body">
+												<form method="post" action="">
+													<div class="selMonthArea" style="padding: 10px;">
+														<label class="tw-account-settings-pane-label">이용기간</label>
+														<div class="selectmonth" id="1mon-parent" style="padding-left: 22px;">
+															<input type="radio" value="10000" name="paymonth" id="1" onclick="radioBtnSelect(this.value);" required><label for="1" style="margin-bottom: 0rem;">&nbsp;
+																&#8361;10,000 / 1개월</label>
+														</div>
+														<div class="selectmonth" id="3mon-parent" style="padding-left: 22px;">
+															<input type="radio" value="27000" name="paymonth" id="3" onclick="radioBtnSelect(this.value);" required><label for="3" style="margin-bottom: 0rem;">&nbsp;
+																&#8361;27,000 / 3개월</label>
+														</div>
+														<div class="selectmonth" id="6mon-parent" style="padding-left: 22px;">
+															<input type="radio" value="51000" name="paymonth" id="6" onclick="radioBtnSelect(this.value);" required><label for="6" style="margin-bottom: 0rem;">&nbsp;
+																&#8361;51,000 / 6개월</label>
+														</div>
+														<div class="selectmonth" id="12mon-parent" style="padding-left: 20px;">
+															<input type="radio" value="96000" name="paymonth" id="12" onclick="radioBtnSelect(this.value);" required><label for="12" style="margin-bottom: 0rem;">&nbsp;
+																&#8361;96,000 / 12개월</label>
+														</div>
+													</div>
+													<br> <br> <br> <br> <br>
+
+													<div class="selNumArea" style="padding: 10px;">
+														<label class="tw-account-settings-pane-label">참여멤버 수</label> <select class="selectnum">
+															<c:forEach var="i" begin="1" end="${count_user }" step="1">
+																<option value="${i }"><c:out value="${i }" /></option>
+															</c:forEach>
+														</select>
+													</div>
+
+													<div class="btnArea">
+														<input type="button" class="btn btn-info btn-icon-split" id="paybtn" style="width: 100px;" value="결제" onclick="payPopup();">
+														<c:choose>
+															<c:when test="${empty payment_user }">
+															</c:when>
+															<c:otherwise>
+																<input type='button' class='btn btn-warning btn-icon-split' id='selectBtn' style='width: 100px; margin-right: 10px;' value='멤버선택'
+																	onclick='selectMember(${payment_user.p_number }, ${payment_user.user_num });' />
+															</c:otherwise>
+														</c:choose>
+													</div>
+												</form>
+											</div>
+										</div>
+									</c:otherwise>
+								</c:choose>
+								<!-- 결제 끝 -->
+							</div>
+						</div>
+
+
+						<!-- Content Row -->
+						<div class="row" style="width: 100%">
+
+							<!-- 예약조회 -->
+
+
+							<div class="col-lg-8 mb-7">
+
+								<div class="card shadow mb-4">
+									<div class="card-header py-3">
+										<h6 class="m-0 font-weight-bold text-primary">예약조회</h6>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-bordered" id="dataTable" style="text-align: center" width="100%" cellspacing="0">
+												<thead>
+													<tr>
+														<th>NO.</th>
+														<th>예약번호</th>
+														<th>예약날짜</th>
+														<th>회의실</th>
+														<th>예약시간</th>
+														<th>예약취소</th>
+
+													</tr>
+												</thead>
+
+												<tbody>
+													<c:choose>
+														<c:when test="${empty r_list}}">
+															<tr>
+																<td colspan="6 align="conter">---------예약내역이없습니다.---------</td>
+															</tr>
+														</c:when>
+														<c:otherwise>
+															<c:forEach items="${r_list}" var="reser" varStatus="status">
+																<tr>
+																	<td>${status.index}</td>
+																	<td>${reser.reser_no}</td>
+																	<td>${reser.day}</td>
+																	<td>회의실 ${reser.room}</td>
+																	<td>${reser.time}</td>
+																	<td><button onclick="location.href='r_delete.do?u_no=${u_no}&sub=${reser.sub}&reser_no=${reser.reser_no}'" class="mypage-btn btn btn-danger btn-icon-split"
+																			style="float: center; width: 80px; height: 35px">
+																			<span class="text mypage-btn">예약취소 </span>
+																		</button></td>
+
+																</tr>
+															</c:forEach>
+														</c:otherwise>
+													</c:choose>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+							</div>
 						</div>
 					</div>
-	</div>
 				</div>
 				<!-- /.container-fluid -->
 
@@ -424,6 +495,56 @@ function selectMember(num, pay_user) {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					<button onclick="location.href='m_delete.do?u_no=${u_no}'" type="button" class="btn btn-primary">yes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 비번 일치 -->
+	<div class="modal fade" id="pwModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">비밀번호 변경</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="updatePw.do" method="post" class="user">
+						<div class="form-group">
+							<div class="col-sm-6 mb-3 mb-sm-0" style="max-width: 100%;">
+								<input type="password" class="form-control form-control-user" id="uppassword" name="password" placeholder="Password">
+							</div>
+							<div class="my-2"></div>
+							<div class="col-sm-6" style="max-width: 100%;">
+								<input type="password" class="form-control form-control-user" id="uppassword2" name="password2" placeholder="Repeat Password">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button  type="submit" class="btn btn-primary">yes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal 비번 불일치-->
+	<div class="modal fade" id="notPwModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">경고</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">비밀번호가 일치하지 않습니다.</div>
+				<div class="modal-footer">
+<!-- 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
 				</div>
 			</div>
 		</div>

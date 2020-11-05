@@ -119,4 +119,16 @@
   		
   	</select>
   	
+  	<select id="check_pw" parameterType="String"  resultType="int">
+  		SELECT COUNT(*)
+		FROM "User"
+		WHERE U_ID= #{u_id} AND PASSWORD = #{password}
+  	</select>	
+  	
+  	 <update id="p_update" parameterType="memberDto">
+      UPDATE "User"
+      SET PASSWORD = #{password}
+      WHERE USER_NUM = #{user_num}
+
+   </update>
 </mapper>
